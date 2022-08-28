@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+<!-- <context:annotation-config /> -->
+
+<context:component-scan  base-package="org.pop.Ent">
+    <!-- <context:include-filter type="assignable" expression="org.pop.Ent.Audience"/> -->
+    <!-- <context:include-filter type="assignable" expression="org.pop.Ent.Thinker"/> -->
+    <!-- <context:include-filter type="assignable" expression="org.pop.Ent.MindReader"/> -->
+    <context:include-filter type="assignable" expression="org.pop.Ent.MindReader"/>
+    <context:include-filter type="assignable" expression="org.pop.Ent.Thinker"/>
+    <context:include-filter type="assignable" expression="org.pop.Ent.Audience"/>
+      <context:include-filter type="assignable" expression="org.pop.Ent.Instrument"/>
+    <context:include-filter type="assignable" expression="org.pop.Ent.Performer"/>
+</context:component-scan>
+
+
+<!-- <bean id="pianist" class="org.pop.Ent.Pianist" p:song="Jingle Bells"/> -->
+
+<aop:config>
+
+<aop:aspect ref="audience">
+    <aop:pointcut id="perform" expression="execution(* org.pop.Ent.Performer.perform(..))"/>
+    <!-- <aop:before pointcut-ref="perform" method="takeSeats"/>
+    <aop:before pointcut-ref="perform" method="offCellPhones"/>
+    <aop:after-returning pointcut-ref="perform" method="applaud"/>
+    <aop:after-throwing pointcut-ref="perform" method="demandRefund"/> -->
+
+    <aop:around pointcut-ref="perform" method="watchPerform"/>
+
+</aop:aspect>
+
+
+
+    <aop:aspect ref="magicain">
+        <aop:pointcut 
+            id="thinking" 
+        expression="execution(* org.pop.Ent.Thinker.thinkOfSomething(String))"
+        />
+        
+        <!-- <aop:before 
+            pointcut-ref="thinking"
+            method="readThing" 
+        /> -->
+    
+    </aop:aspect>
+</aop:config>
+
+
+</beans>
+
