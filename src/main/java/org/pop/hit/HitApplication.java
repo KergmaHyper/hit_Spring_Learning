@@ -19,7 +19,7 @@ public class HitApplication {
 		// Auditorium hall = (Auditorium) ctx.getBean("hall");
 		Performer kenny = (Performer) ctx.getBean("pianist");
 		kenny.perform();
-		kenny.perform();
+
 	}
 
 }
